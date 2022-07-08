@@ -15,8 +15,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="pin-generator half-width">
-                    <input class="form-control" type="text">
-                    <button class="generate-btn">Generate Pin</button>
+                    <input id="generate-pin-display" class="form-control" type="text" value="">
+                    <!-- <button id="generate-pin-btn" class="generate-btn">Generate Pin</button> -->
+                    <button class="generate-btn"
+                        onclick="document.getElementById('generate-pin-display').value = getRndInteger(999, 9999)">Click
+                        Here</button>
                 </div>
             </div>
             <div class="col-md-6">
@@ -45,7 +48,7 @@
                                     <input type="button" value="0" class="button" onclick="calculate(this.value)">
                                 </div>
                                 <div>
-                                    <button type="submit" class="submit-btn">Submit</button>
+                                    <button type="button" class="submit-btn" id="submit-option">Submit</button>
                                     <p class="action-left">3 try left</p>
                                 </div>
                             </div>
@@ -54,9 +57,15 @@
                 </div>
             </div>
             <div id="notify-massage">
-                <div class="notify-section">
-                    <p class="notify">❌ Pin Didn't Match, Please try again</p>
-                    <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
+                <div id="notify-massage-yes">
+                    <div class="notify-section">
+                        <p id="currect" class="notify" >✅ Pin Matched... Secret door is opening for you</p>
+                    </div>
+                </div>
+                <div id="notify-massage-no">
+                    <div class="notify-section">
+                        <p id="wrong" class="notify">❌ Pin Didn't Match, Please try again</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,6 +74,26 @@
             function calculate(input) {
                 form.display.value += input;
             }
+
+            function getRndInteger(min, max) {
+                return Math.floor(Math.random() * (max - min)) + min;
+            }
+
+            var submiValue = document.getElementById("submit-option");
+            submiValue.addEventListener("click", function () {
+                var inputResult = document.getElementById("display").value;
+                var generateValue = document.getElementById("generate-pin-display").value;
+
+                if (inputResult == generateValue) {
+                    const finalResult = document.getElementById("notify-massage-yes");
+                    finalResult.style.display = "block"
+                }
+                else {
+                    const finalResult = document.getElementById("notify-massage-no");
+                    finalResult.style.display = "block"
+                }
+            })
+
         </script>
 </body>
 
